@@ -14,6 +14,7 @@ Fine, its almost there
 now in your project change the data on env-variables.json, you can get this codes on your new application 
 
 >> npm install
+
 >> npm start 
 
 Now you can acess using the oauth and OpenId to recover the user identity

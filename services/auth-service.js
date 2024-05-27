@@ -1,6 +1,6 @@
 // services/auth-service.js
 
-const jwtDecode = require('jwt-decode');
+const { jwtDecode } = require('jwt-decode');
 const axios = require('axios');
 const url = require('url');
 const envVariables = require('../env-variables');
@@ -59,10 +59,12 @@ async function refreshTokens() {
 
     try {
       const response = await axios(refreshOptions);
-      console.log(response.data.id_token);
+      console.log(response.data);
+      console.log("========================================================");
       accessToken = response.data.access_token;
       profile = jwtDecode(response.data.id_token);
     } catch (error) {
+      console.log(error);
       await logout();
 
       throw error;
@@ -94,9 +96,9 @@ async function loadTokens(callbackURL) {
 
   try {
     const response = await axios(options);
-
+    console.log(response.data, "=============================================");
     accessToken = response.data.access_token;
-    profile = jwtDecode(response.data.id_token);
+    profile = await jwtDecode(response.data.id_token);
     refreshToken = response.data.refresh_token;
 
     if (refreshToken) {
